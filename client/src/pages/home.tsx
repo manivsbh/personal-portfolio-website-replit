@@ -9,6 +9,8 @@ import CertificationsSection from "@/components/CertificationsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import VoiceControls from "@/components/VoiceControls";
+import VoiceIntroduction from "@/components/VoiceIntroduction";
 
 export default function Home() {
   useEffect(() => {
@@ -27,6 +29,8 @@ export default function Home() {
       <ContactSection />
       <Footer />
       <BackToTop />
+      <VoiceControls />
+      <VoiceIntroduction />
     </div>
   );
 }

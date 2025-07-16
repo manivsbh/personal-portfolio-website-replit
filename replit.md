@@ -132,6 +132,14 @@ Preferred communication style: Simple, everyday language.
 - Set up file serving endpoints for uploaded images
 - Fixed storage backend to support contact form submissions
 
+### AI Voice Narration System
+- Implemented text-to-speech functionality using Web Speech API
+- Created scroll-triggered narration that speaks as user navigates sections
+- Added voice controls with play/pause/skip functionality
+- Built intelligent voice selection for natural-sounding narration
+- Integrated voice introduction modal with user consent
+- Added visual indicators for speaking status and accessibility features
+
 ### Deployment Preparation
 - Created comprehensive README.md with installation and feature overview
 - Added detailed DEPLOYMENT.md with multiple deployment platform options
