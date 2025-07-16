@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import VoiceControls from "@/components/VoiceControls";
 import VoiceIntroduction from "@/components/VoiceIntroduction";
+import VoicePreview from "@/components/VoicePreview";
 
 export default function Home() {
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function Home() {
       <BackToTop />
       <VoiceControls />
       <VoiceIntroduction />
+      <VoicePreview />
     </div>
   );
 }

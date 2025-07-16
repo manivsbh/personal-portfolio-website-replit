@@ -23,10 +23,10 @@ export default function VoiceIntroduction() {
     setHasBeenShown(true);
     setShowIntro(false);
     
-    // Start with welcome message
+    // Start with welcome message using optimized male voice settings
     speak("Welcome to my portfolio! I'll guide you through my professional journey as you scroll. You can control the narration using the voice button at the bottom right.", {
-      rate: 0.9,
-      pitch: 1,
+      rate: 0.85,
+      pitch: 0.9,
       volume: 0.8
     });
   };

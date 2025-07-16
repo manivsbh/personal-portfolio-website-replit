@@ -45,21 +45,13 @@ export function useSpeech() {
     utterance.pitch = options.pitch || 1;
     utterance.volume = options.volume || 0.8;
     
-    // Try to use a more natural voice
+    // Use the best male voice available
     if (options.voice) {
       utterance.voice = options.voice;
     } else {
-      // Prefer English voices that sound more natural
-      const preferredVoice = voices.find(voice => 
-        voice.lang.includes('en') && 
-        (voice.name.includes('Google') || 
-         voice.name.includes('Microsoft') ||
-         voice.name.includes('Natural') ||
-         voice.name.includes('Enhanced'))
-      ) || voices.find(voice => voice.lang.includes('en'));
-      
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
+      const bestVoice = getBestVoice();
+      if (bestVoice) {
+        utterance.voice = bestVoice;
       }
     }
 
@@ -103,25 +95,49 @@ export function useSpeech() {
   };
 
   const getBestVoice = () => {
-    // Try to get the most natural-sounding male voice for professional presentation
-    const maleVoices = voices.filter(voice => 
-      voice.lang.includes('en') && 
-      (voice.name.toLowerCase().includes('male') ||
-       voice.name.toLowerCase().includes('david') ||
-       voice.name.toLowerCase().includes('mark') ||
-       voice.name.toLowerCase().includes('ryan'))
-    );
+    // Prioritize male voices that sound professional and authoritative
+    const preferredMaleNames = [
+      'david', 'mark', 'ryan', 'alex', 'daniel', 'microsoft david',
+      'google uk english male', 'en-us-male', 'male', 'masculine'
+    ];
 
-    if (maleVoices.length > 0) {
-      return maleVoices[0];
+    // First try to find specifically named male voices
+    for (const maleName of preferredMaleNames) {
+      const voice = voices.find(v => 
+        v.lang.includes('en') && 
+        v.name.toLowerCase().includes(maleName)
+      );
+      if (voice) return voice;
     }
 
-    // Fallback to any good English voice
-    return voices.find(voice => 
+    // Look for any voice that explicitly mentions male in the name
+    const explicitMaleVoice = voices.find(voice => 
       voice.lang.includes('en') && 
-      (voice.name.includes('Google') || 
-       voice.name.includes('Microsoft'))
-    ) || voices.find(voice => voice.lang.includes('en'));
+      voice.name.toLowerCase().includes('male')
+    );
+    if (explicitMaleVoice) return explicitMaleVoice;
+
+    // Filter out obviously female voices and pick from remaining
+    const nonFemaleVoices = voices.filter(voice => 
+      voice.lang.includes('en') && 
+      !voice.name.toLowerCase().includes('female') &&
+      !voice.name.toLowerCase().includes('woman') &&
+      !voice.name.toLowerCase().includes('girl') &&
+      !voice.name.toLowerCase().includes('sarah') &&
+      !voice.name.toLowerCase().includes('susan') &&
+      !voice.name.toLowerCase().includes('karen') &&
+      !voice.name.toLowerCase().includes('emma') &&
+      !voice.name.toLowerCase().includes('samantha')
+    );
+
+    // Prefer Google or Microsoft voices from the filtered list
+    const qualityVoice = nonFemaleVoices.find(voice => 
+      voice.name.includes('Google') || 
+      voice.name.includes('Microsoft') ||
+      voice.name.includes('Enhanced')
+    );
+
+    return qualityVoice || nonFemaleVoices[0] || voices.find(voice => voice.lang.includes('en'));
   };
 
   return {

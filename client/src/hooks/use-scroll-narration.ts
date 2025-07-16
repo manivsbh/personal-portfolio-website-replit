@@ -50,9 +50,9 @@ export function useScrollNarration(isEnabled: boolean = true) {
               // Small delay to ensure smooth scrolling completes
               setTimeout(() => {
                 speak(narrationTexts[sectionId], {
-                  rate: 0.9,
-                  pitch: 1,
-                  volume: 0.7
+                  rate: 0.85,
+                  pitch: 0.9,
+                  volume: 0.8
                 });
               }, 500);
             }
