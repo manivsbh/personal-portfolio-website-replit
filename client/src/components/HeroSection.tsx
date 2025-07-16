@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
+import { useState } from "react";
+import PhotoUpload from "./PhotoUpload";
 
 export default function HeroSection() {
+  const [profilePhoto, setProfilePhoto] = useState<string>("/uploads/profile-photo.jpg");
+
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
     if (element) {
@@ -85,17 +89,10 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="w-80 h-80 mx-auto glassmorphism rounded-2xl p-8"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
-                alt="Professional headshot of Manish Cheepa"
-                className="rounded-xl w-full h-full object-cover"
-              />
-            </motion.div>
+            <PhotoUpload 
+              currentPhotoUrl={profilePhoto}
+              onPhotoUploaded={(url) => setProfilePhoto(url)}
+            />
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
